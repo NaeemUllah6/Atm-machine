@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ::-webkit-input-placeholder {
+            color: rgb(56, 79, 255);
+        }
+
+        #validation {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        #pininput {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        .error {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+            position: absolute;
+            top: 91px;
+            right: 25%;
+            background-color: white;
+        }
+
+        #m-2 {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        .button {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div style="box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;"
+            class="bg-light text-center justify-content-center py-3 mt-4 rounded text-primary fw-bold">
+            Welcome to Allied ATM
+        </div>
+    </div>
+    <section style="padding: 20px 0 20px 0;">
+        <div class="container">
+            <div id="login" style="max-width: 400px; margin: auto;">
+                <label class="text-primary" for="pininput">Enter Your PIN</label>
+                <input id="pininput" class="form-control mt-2 rounded-0 text-primary py-3" type="password" placeholder="PIN" minlength="4" maxlength="4">
+                <button id="validation" class="btn btn-light w-100 text-primary mt-2 px-3 rounded-0">Enter</button>
+                <p id="error_password" class="d-none">Success</p>
+                <p id="error_password2" class="d-none">Error</p>
+            </div>
+            <div id="errorWraper" class="w-50 m-auto border rounded p-5 text-center error d-none">
+                <p class="text-primary fw-bold">Error! <br>
+                    Please Enter the Correct Password</p>
+                <button id="m-2" class="m-2 btn text-primary rounded-0" onclick="showHide()">Re Enter</button>
+            </div>
+            <div id="errorWraper2" class="w-50 m-auto border rounded p-5 text-center error d-none">
+                <p class="text-primary fw-bold">Error! <br>
+                    Password cannot be Blank</p>
+                <button id="m-2" class="m-2 btn text-primary rounded-0" onclick="die()">Re Enter</button>
+            </div>
+            <div id="my-buttons" class="buttons m-auto gap-4 p-5 d-flex d-none">
+                <button class="button text-primary w-100 py-2 px-5 btn rounded-0">Check balance</button>
+                <button id="withdraw" class="button text-primary w-100 py-2 px-5 btn rounded-0">Withdraw Money</button>
+                <button class="button text-primary w-100 py-2 px-5 btn rounded-0" onclick="changepsw()">Change Password</button>
+                <button id="cancel" class="button text-primary w-100 py-2 px-5 btn rounded-0">Cancel Transaction</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('validation').addEventListener('click', function () {
+            const pininputs = document.getElementById('pininput').value;
+            document.getElementById('error_password2').classList.add('d-none');
+            document.getElementById('error_password').classList.add('d-none');
+            document.getElementById('errorWraper').classList.add('d-none');
+            document.getElementById('errorWraper2').classList.add('d-none');
+            if (pininputs === "") {
+                document.getElementById('errorWraper2').classList.remove('d-none');
+            } else if (pininputs == 1234 || pininputs == 7860 || pininputs == 9696) {
+                document.getElementById('error_password').classList.remove('d-none');
+                document.getElementById('login').classList.add('d-none');
+                document.getElementById('my-buttons').classList.remove('d-none');
+            } else {
+                document.getElementById('errorWraper').classList.remove('d-none');
+            }
+        });
+
+        function showHide() {
+            document.getElementById('errorWraper').classList.add('d-none');
+        }
+
+        function die() {
+            document.getElementById('errorWraper2').classList.add('d-none');
+        }
+
+        function cancel() {
+            document.getElementById('login').classList.remove('d-none');
+            document.getElementById('my-buttons').classList.add('d-none');
+        }
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') {
+                location.reload();
+            }
+        });
+
+        document.getElementById("cancel").addEventListener("click", function () {
+            window.location.href = "Atm Machine.html";
+        });
+        function changepsw() {
+            window.location.href = ('resetpassword.html');
+        }
+    </script>
+</body>
+
+</html>
